@@ -115,6 +115,7 @@ module pulp_cluster
 (
   input  logic                             clk_i,
   input  logic                             rst_ni,
+  input  logic                             core_mem_rst_i,
   input  logic                             ref_clk_i,
   input  logic                             pmu_mem_pwdn_i,
 
@@ -1381,7 +1382,7 @@ module pulp_cluster
     .NB_BANKS  ( NB_TCDM_BANKS )
   ) tcdm_banks_i (
     .clk_i       ( clk_cluster     ),
-    .rst_ni      ( s_rst_n         ),
+    .rst_ni      ( ~core_mem_rst_i   ),
     .init_ni     ( s_init_n        ),
     .test_mode_i ( test_mode_i     ),
     .pwdn_i      ( 1'b0            ),
