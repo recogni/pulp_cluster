@@ -356,7 +356,20 @@ module cluster_peripherals
  `endif
 `endif
    
-  //********************************************************
+`define JPEG_ENCODER
+    `ifdef JPEG_ENCODER
+    jpeg_top_wrap i_jpeg (
+      .clk                         ( clk_i                            ),
+      .rst                         ( ~rst_ni                          ),
+
+      .fifo_interrupt              (                                  ),
+      .end_interrupt               (                                  ),
+      .error_interrupt             (                                  ),
+      .slv                         ( speriph_slave[SPER_JPEG_ID]      )
+    );
+    `endif
+
+    //********************************************************
     //******************** DMA CL CONFIG PORT ****************
     //********************************************************
 
@@ -407,12 +420,13 @@ module cluster_peripherals
     assign hwpe_cfg_master.be    = speriph_slave[SPER_HWPE_ID].be;
     assign hwpe_cfg_master.id    = speriph_slave[SPER_HWPE_ID].id;
 
-    assign speriph_slave[SPER_DECOMP_ID].gnt     =    '0;
-    assign speriph_slave[SPER_DECOMP_ID].r_rdata =  '0;
-    assign speriph_slave[SPER_DECOMP_ID].r_opc   = '0;
-    assign speriph_slave[SPER_DECOMP_ID].r_id    = '0;
-    assign speriph_slave[SPER_DECOMP_ID].r_valid = '0;
-
+    `ifndef JPEG_ENCODER
+    assign speriph_slave[SPER_JPEG_ID].gnt     = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_rdata = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_opc   = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_id    = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_valid = '0;
+    `endif
 
     generate
     if(FEATURE_DEMUX_MAPPED == 0) begin : eu_not_demux_mapped_gen

@@ -51,6 +51,10 @@ icache_private:
   commit: b14de95b0f70e2edb54ccc7076d5737b41249411
   domain: [cluster]
   group: pulp-platform
+jpeg_enc: 
+  commit: master
+  domain: [cluster]
+  group: recogni
 cluster_peripherals:
   commit: tags/v1.0.1
   domain: [cluster]
