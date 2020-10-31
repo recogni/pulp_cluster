@@ -118,6 +118,7 @@ module pulp_cluster
   input  logic                             core_mem_rst_i,
   input  logic                             ref_clk_i,
   input  logic                             pmu_mem_pwdn_i,
+  input  logic [31:0]                      boot_addr_i,
 
   
   input logic [3:0]                        base_addr_i,
@@ -874,7 +875,7 @@ module pulp_cluster
         .clock_en_i          ( clk_core_en[i]        ),
         .fetch_en_i          ( fetch_en_int[i]       ),
        
-        .boot_addr_i         ( boot_addr[i]          ),
+        .boot_addr_i         ( boot_addr_i           ),
         .irq_id_i            ( irq_id[i]             ),
 	      .irq_ack_id_o        ( irq_ack_id[i]         ),
         .irq_req_i           ( irq_req[i]            ),
