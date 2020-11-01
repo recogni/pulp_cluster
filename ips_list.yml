@@ -52,7 +52,7 @@ icache_private:
   domain: [cluster]
   group: pulp-platform
 jpeg_enc: 
-  commit: master
+  commit: scorpio-v1-tapeout
   domain: [cluster]
   group: recogni
 cluster_peripherals:
