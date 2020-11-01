@@ -773,7 +773,7 @@ module pulp_cluster
     // NEW_SIGNALS .decompr_done_evt_i     ( s_decompr_done_evt                 ),
 
     .dma_fc_event_i         ( s_dma_fc_event                     ),
-    .dma_fc_irq_i           (                                    ),
+    .dma_fc_irq_i           ( 1'b0                               ),
 
     .soc_periph_evt_ready_o ( s_events_ready                     ),
     .soc_periph_evt_valid_i ( s_events_valid                     ),
