@@ -31,6 +31,7 @@ module cluster_peripherals
   parameter BOOT_ADDR      = 32'h1C000000,
   parameter EVNT_WIDTH     = 8,
   parameter FEATURE_DEMUX_MAPPED = 1,
+  parameter FEATURE_JPEG_ENC = 1,
   parameter int unsigned  NB_L1_CUTS      = 16,
   parameter int unsigned  RW_MARGIN_WIDTH = 4
 )
@@ -358,8 +359,7 @@ module cluster_peripherals
  `endif
 `endif
    
-`define JPEG_ENCODER
-    `ifdef JPEG_ENCODER
+  if ( FEATURE_JPEG_ENC ) begin : JPEG_PRESENT
     jpeg_top_wrap i_jpeg (
       .clk                         ( clk_i                            ),
       .rst                         ( ~rst_ni                          ),
@@ -369,7 +369,14 @@ module cluster_peripherals
       .error_interrupt             ( jpeg_events[2]                   ),
       .slv                         ( speriph_slave[SPER_JPEG_ID]      )
     );
-    `endif
+  end else begin: JPEG_NOT_PRESENT
+    assign jpeg_events[2:0] = '0;
+    assign speriph_slave[SPER_JPEG_ID].gnt     = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_rdata = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_opc   = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_id    = '0;
+    assign speriph_slave[SPER_JPEG_ID].r_valid = '0;
+  end
 
     //********************************************************
     //******************** DMA CL CONFIG PORT ****************
@@ -421,14 +428,6 @@ module cluster_peripherals
     assign hwpe_cfg_master.wdata = speriph_slave[SPER_HWPE_ID].wdata;
     assign hwpe_cfg_master.be    = speriph_slave[SPER_HWPE_ID].be;
     assign hwpe_cfg_master.id    = speriph_slave[SPER_HWPE_ID].id;
-
-    `ifndef JPEG_ENCODER
-    assign speriph_slave[SPER_JPEG_ID].gnt     = '0;
-    assign speriph_slave[SPER_JPEG_ID].r_rdata = '0;
-    assign speriph_slave[SPER_JPEG_ID].r_opc   = '0;
-    assign speriph_slave[SPER_JPEG_ID].r_id    = '0;
-    assign speriph_slave[SPER_JPEG_ID].r_valid = '0;
-    `endif
 
     generate
     if(FEATURE_DEMUX_MAPPED == 0) begin : eu_not_demux_mapped_gen
