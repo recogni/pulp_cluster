@@ -110,7 +110,11 @@ module pulp_cluster
   parameter APU_WOP_CPU           = 6,
   parameter WAPUTYPE              = 3,
   parameter APU_NDSFLAGS_CPU      = 15,
-  parameter APU_NUSFLAGS_CPU      = 5
+  parameter APU_NUSFLAGS_CPU      = 5,
+
+
+  // Optional units
+  parameter FEATURE_JPEG_ENC      = 1
 )
 (
   input  logic                             clk_i,
@@ -744,7 +748,9 @@ module pulp_cluster
     .EVNT_WIDTH     ( EVNT_WIDTH     ),
 
     .NB_L1_CUTS      ( NB_L1_CUTS       ),
-    .RW_MARGIN_WIDTH ( RW_MARGIN_WIDTH  )
+    .RW_MARGIN_WIDTH ( RW_MARGIN_WIDTH  ),
+
+    .FEATURE_JPEG_ENC ( FEATURE_JPEG_ENC )
   
   ) cluster_peripherals_i (
 
