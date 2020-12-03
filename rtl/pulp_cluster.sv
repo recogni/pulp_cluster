@@ -118,6 +118,7 @@ module pulp_cluster
   input  logic                             core_mem_rst_i,
   input  logic                             ref_clk_i,
   input  logic                             pmu_mem_pwdn_i,
+  input  logic [31:0]                      boot_addr_i,
 
   
   input logic [3:0]                        base_addr_i,
@@ -611,7 +612,7 @@ module pulp_cluster
     .masters ( s_mperiph_demux_bus )
   );
 
-  `TCDM_ASSIGN_MASTER (s_mperiph_xbar_bus[`NB_MPERIPHS-1], s_mperiph_demux_bus[0])
+  `TCDM_ASSIGN_MASTER (s_mperiph_xbar_bus[NB_MPERIPHS-1], s_mperiph_demux_bus[0])
     
   // assign s_mperiph_xbar_bus[NB_MPERIPHS-1].req   = s_mperiph_demux_bus[0].req;
   // assign s_mperiph_xbar_bus[NB_MPERIPHS-1].add   = s_mperiph_demux_bus[0].add;
@@ -772,7 +773,7 @@ module pulp_cluster
     // NEW_SIGNALS .decompr_done_evt_i     ( s_decompr_done_evt                 ),
 
     .dma_fc_event_i         ( s_dma_fc_event                     ),
-    .dma_fc_irq_i           (                                    ),
+    .dma_fc_irq_i           ( 1'b0                               ),
 
     .soc_periph_evt_ready_o ( s_events_ready                     ),
     .soc_periph_evt_valid_i ( s_events_valid                     ),
@@ -874,7 +875,7 @@ module pulp_cluster
         .clock_en_i          ( clk_core_en[i]        ),
         .fetch_en_i          ( fetch_en_int[i]       ),
        
-        .boot_addr_i         ( boot_addr[i]          ),
+        .boot_addr_i         ( boot_addr_i           ),
         .irq_id_i            ( irq_id[i]             ),
 	      .irq_ack_id_o        ( irq_ack_id[i]         ),
         .irq_req_i           ( irq_req[i]            ),

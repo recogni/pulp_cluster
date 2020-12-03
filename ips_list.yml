@@ -44,13 +44,17 @@ icache-intc:
   domain: [cluster]
   group: pulp-platform
 icache_mp_128_pf:
-  commit: tags/v1.0.0
+  commit: 8b6c8c71a31237318f952f04882a090a7f0cb5ff 
   domain: [cluster]
-  group: pulp-platform
+  group:  recogni 
 icache_private:
   commit: b14de95b0f70e2edb54ccc7076d5737b41249411
   domain: [cluster]
   group: pulp-platform
+jpeg_enc: 
+  commit: 21f1374d4ddd61878296d7c46f5c9083b27c1fbf 
+  domain: [cluster]
+  group: recogni
 cluster_peripherals:
   commit: tags/v1.0.1
   domain: [cluster]

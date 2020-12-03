@@ -373,11 +373,12 @@ module cluster_bus_wrap
     .cfg_connectivity_map_i   ( s_connectivity_map )
   );
 
-  assign s_start_addr[0][0] = `MASTER_0_START_ADDR + ( cluster_id_i << 22);
-  assign s_end_addr[0][0]   = `MASTER_0_END_ADDR   + ( cluster_id_i << 22);
+  // Remove cluster based address changes - rely on NoC instead
+  assign s_start_addr[0][0] = `MASTER_0_START_ADDR; // + ( cluster_id_i << 22);
+  assign s_end_addr[0][0]   = `MASTER_0_END_ADDR;   // + ( cluster_id_i << 22);
 
-  assign s_start_addr[0][1] = `MASTER_1_START_ADDR + ( cluster_id_i << 22);
-  assign s_end_addr[0][1]   = `MASTER_1_END_ADDR   + ( cluster_id_i << 22);
+  assign s_start_addr[0][1] = `MASTER_1_START_ADDR; // + ( cluster_id_i << 22);
+  assign s_end_addr[0][1]   = `MASTER_1_END_ADDR;   // + ( cluster_id_i << 22);
 
   assign s_start_addr[0][2] = `MASTER_2_START_ADDR;
   assign s_end_addr[0][2]   = `MASTER_2_END_ADDR;
