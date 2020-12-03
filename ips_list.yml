@@ -52,7 +52,7 @@ icache_private:
   domain: [cluster]
   group: pulp-platform
 jpeg_enc: 
-  commit: f1e2819268eafed5fa50ecca6c6246a06d6c1a7c
+  commit: 9dd48510db2a86815b615745eb5e0bd35eb9f084
   domain: [cluster]
   group: recogni
 cluster_peripherals:
